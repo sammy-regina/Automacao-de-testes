@@ -1,5 +1,17 @@
+# Pasta target (artefatos gerados pelo Maven)
+target/
+allure-results
+
+# Configurações do IntelliJ IDEA
+.idea/
+*.iml
+
+# Configurações do Visual Studio Code
+.vscode/
+
 # Compiled class file
 *.class
+*.swp
 
 # Log file
 *.log
@@ -9,6 +21,7 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+*.temp
 
 # Package Files #
 *.jar
@@ -22,3 +35,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Relatórios de teste
+allure-results/
+allure-report/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

@@ -36,7 +36,7 @@ public class Hooks {
         // driver.manage().window().maximize();
     }
 
-    @After
+    @After // Finaliza o cenário
     public void finalizarCenario(Scenario cenario) {
         System.out.println("🔸 Finalizando cenário: " + cenario.getName());
 
