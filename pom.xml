@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>br.com.sandra</groupId>
+  <artifactId>AutomacaoDeTestes</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>AutomacaoDeTestes</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <cucumber.version>7.18.0</cucumber.version>
+    <junit.version>4.13.2</junit.version>
+    <restassured.version>5.4.0</restassured.version>
+    <selenium.version>4.22.0</selenium.version>
+    <webdrivermanager.version>5.9.0</webdrivermanager.version>
+    <apache.poi.version>5.3.0</apache.poi.version>
+    <allure.cucumber7.version>2.29.0</allure.cucumber7.version>
+    <commons.io.version>2.16.1</commons.io.version>
+  </properties>
+
+  <dependencies>
+    <!-- Cucumber Core -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Cucumber JUnit Runner -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- RestAssured -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${restassured.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Selenium WebDriver -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- WebDriverManager (para gerenciar automaticamente drivers de navegadores) -->
+    <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>${webdrivermanager.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <!-- Apache POI (para Excel) -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${apache.poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${apache.poi.version}</version>
+    </dependency>
+    <!-- Allure Cucumber7 JVM (para relatórios HTML) -->
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-cucumber7-jvm</artifactId>
+        <version>${allure.cucumber7.version}</version>
+    </dependency>
+    <!-- Commons IO (para utilitários de arquivo, como capturas de tela) -->
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.2.5</version>
+          <configuration>
+              <testFailureIgnore>true</testFailureIgnore>
+              <argLine>
+                  -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"
+                  -Dcucumber.options="--plugin io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+              </argLine>
+              <systemProperties>
+                  <property>
+                      <name>allure.results.directory</name>
+                      <value>${project.build.directory}/allure-results</value>
+                  </property>
+              </systemProperties>
+          </configuration>
+          <dependencies>
+              <dependency>
+                  <groupId>org.aspectj</groupId>
+                  <artifactId>aspectjweaver</artifactId>
+                  <version>1.9.22</version>
+              </dependency>
+          </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>
